@@ -1,0 +1,614 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── 1. MODERN CSS RESET & CORE RESOLUTION LAYER ─────────────────────────── */
+*, ::before, ::after {
+box-sizing: border-box;
+border-width: 0;
+border-style: solid;
+border-color: var(--border, #1e293b);
+}
+
+html {
+scroll-behavior: smooth;
+-webkit-text-size-adjust: 100%;
+font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01", "ss02", "ss03";
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+margin: 0;
+line-height: inherit;
+color: hsl(var(--foreground));
+background-color: hsl(var(--background));
+font-feature-settings: "rlig" 1, "calt" 1;
+overflow-x: hidden;
+}
+
+/* ── 2. ENTERPRISE DESIGN TOKENS & SYSTEM VARIABLES ────────────────────── /
+:root {
+/ HSL Mappings optimized for strict accessibility testing bounds */
+--background: 228 56% 5%;
+--foreground: 210 40% 98%;
+
+--card: 222 47% 11%;
+--card-foreground: 210 40% 98%;
+
+--popover: 224 71% 4%;
+--popover-foreground: 215 20% 65%;
+
+--primary: 239 84% 67%;
+--primary-foreground: 0 0% 100%;
+
+--secondary: 263 90% 66%;
+--secondary-foreground: 210 40% 98%;
+
+--accent: 188 92% 43%;
+--accent-foreground: 228 56% 5%;
+
+--muted: 215 25% 27%;
+--muted-foreground: 215 16% 65%;
+
+--success: 160 84% 39%;
+--success-foreground: 210 40% 98%;
+
+--warning: 38 92% 50%;
+--warning-foreground: 228 56% 5%;
+
+--destructive: 0 84% 60%;
+--destructive-foreground: 210 40% 98%;
+
+--border: 217 33% 17%;
+--input: 217 33% 17%;
+--ring: 239 84% 67%;
+
+--radius-xs: 0.25rem;
+--radius-sm: 0.375rem;
+--radius-md: 0.5rem;
+--radius-lg: 0.75rem;
+--radius-xl: 1rem;
+--radius-2xl: 1.5rem;
+--radius-3xl: 2rem;
+
+--grid-color: rgba(99, 102, 241, 0.04);
+--glow-color: rgba(6, 182, 212, 0.15);
+}
+
+.light {
+--background: 210 40% 98%;
+--foreground: 222 47% 11%;
+--card: 0 0% 100%;
+--card-foreground: 222 47% 11%;
+--popover: 0 0% 100%;
+--popover-foreground: 215 25% 27%;
+--primary: 239 84% 60%;
+--primary-foreground: 0 0% 100%;
+--secondary: 263 90% 60%;
+--secondary-foreground: 0 0% 100%;
+--accent: 188 92% 40%;
+--accent-foreground: 0 0% 100%;
+--muted: 210 40% 96.1%;
+--muted-foreground: 215.4 16.3% 46.9%;
+--border: 214.3 31.8% 91.4%;
+--input: 214.3 31.8% 91.4%;
+--ring: 239 84% 60%;
+--grid-color: rgba(99, 102, 241, 0.02);
+--glow-color: rgba(6, 182, 212, 0.05);
+}
+
+/* ── 3. TYPOGRAPHY SCALING CORE ─────────────────────────────────────────── */
+.text-hero-title {
+font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+line-height: 1.05;
+font-weight: 800;
+letter-spacing: -0.04em;
+}
+
+.text-display-title {
+font-size: clamp(2rem, 4vw + 1rem, 3.75rem);
+line-height: 1.1;
+font-weight: 700;
+letter-spacing: -0.03em;
+}
+
+.text-h1 {
+font-size: 2.25rem;
+line-height: 1.2;
+font-weight: 700;
+letter-spacing: -0.02em;
+}
+
+.text-h2 {
+font-size: 1.875rem;
+line-height: 1.25;
+font-weight: 600;
+letter-spacing: -0.02em;
+}
+
+.text-h3 {
+font-size: 1.5rem;
+line-height: 1.3;
+font-weight: 600;
+letter-spacing: -0.01em;
+}
+
+.text-h4 {
+font-size: 1.25rem;
+line-height: 1.35;
+font-weight: 600;
+}
+
+.text-body-large {
+font-size: 1.125rem;
+line-height: 1.6;
+}
+
+.text-body {
+font-size: 1rem;
+line-height: 1.5;
+}
+
+.text-small {
+font-size: 0.875rem;
+line-height: 1.45;
+}
+
+.text-caption {
+font-size: 0.75rem;
+line-height: 1.4;
+letter-spacing: 0.02em;
+}
+
+/* ── 4. ADVANCED AI VISUAL EFFECTS UTILITY MATRIX ───────────────────────── */
+.effect-glass {
+background: rgba(15, 23, 42, 0.65);
+backdrop-filter: blur(16px) saturate(180%);
+-webkit-backdrop-filter: blur(16px) saturate(180%);
+border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.effect-gradient-border {
+position: relative;
+border-radius: var(--radius-xl);
+background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)) padding-box,
+linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent))) border-box;
+border: 1px solid transparent;
+}
+
+.effect-bg-grid {
+background-size: 40px 40px;
+background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+}
+
+.effect-noise-overlay {
+position: relative;
+}
+.effect-noise-overlay::before {
+content: "";
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+opacity: 0.02;
+pointer-events: none;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3联%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.effect-text-gradient {
+background-image: linear-gradient(135deg, #ffffff 30%, hsl(var(--primary)) 70%, hsl(var(--accent)));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.effect-neon-glow {
+box-shadow: 0 0 20px 0 var(--glow-color),
+0 0 40px -10px hsl(var(--accent) / 0.2);
+}
+
+.orb-ambient {
+position: absolute;
+width: 450px;
+height: 450px;
+border-radius: 50%;
+background: radial-gradient(circle, hsl(var(--primary) / 0.12) 0%, transparent 70%);
+filter: blur(50px);
+pointer-events: none;
+mix-blend-mode: screen;
+}
+
+/* ── 5. PERFORMANCE-OPTIMIZED SYSTEM ANIMATIONS ─────────────────────────── */
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+from {
+opacity: 0;
+transform: translateY(16px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}  
+
+@keyframes slideInLeft {
+from {
+transform: translateX(-24px);
+opacity: 0;
+}
+to {
+transform: translateX(0);
+opacity: 1;
+}
+}  
+
+@keyframes slideInRight {
+from {
+transform: translateX(24px);
+opacity: 0;
+}
+to {
+transform: translateX(0);
+opacity: 1;
+}
+}
+
+@keyframes scaleIn {
+from {
+transform: scale(0.96);
+opacity: 0;
+}
+to {
+transform: scale(1);
+opacity: 1;
+}
+}
+
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseGlow {
+0%, 100% { opacity: 0.3; transform: scale(1); }
+50% { opacity: 0.6; transform: scale(1.03); }
+}
+
+@keyframes gradientShift {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+
+.animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-left { animation: slideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-right { animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-scale-in { animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+.animate-gradient-shift {
+background-size: 200% 200%;
+animation: gradientShift 8s linear infinite;
+}
+
+/* ── 6. ARCHITECTURAL LANDING PAGE COMPONENTS ───────────────────────────── */
+.hero-section {
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: var(--spacing-80, 5rem) var(--spacing-24, 1.5rem);
+text-align: center;
+overflow: hidden;
+}
+
+.hero-title {
+composes: text-hero-title;
+max-width: 52rem;
+margin-left: auto;
+margin-right: auto;
+background: linear-gradient(to bottom, #ffffff 40%, rgba(255, 255, 255, 0.7));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.hero-subtitle {
+composes: text-body-large;
+max-width: 42rem;
+margin: 1.5rem auto 2.5rem;
+color: hsl(var(--muted-foreground));
+font-weight: 400;
+}
+
+.feature-grid {
+display: grid;
+gap: 1.5rem;
+grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .feature-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.feature-card {
+composes: effect-glass;
+border-radius: var(--radius-xl);
+padding: 2rem;
+transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.feature-card:hover {
+transform: translateY(-4px);
+border-color: hsl(var(--primary) / 0.3);
+box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.pricing-card {
+composes: effect-glass;
+border-radius: var(--radius-2xl);
+padding: 2.5rem 2rem;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+transition: border-color 0.3s ease;
+}
+
+.pricing-highlight {
+position: relative;
+background: rgba(15, 23, 42, 0.85);
+border: 1px solid hsl(var(--primary) / 0.4);
+box-shadow: 0 0 30px 0 rgba(99, 102, 241, 0.15);
+}
+.pricing-highlight::before {
+content: "RECOMMENDED";
+position: absolute;
+top: 0;
+left: 50%;
+transform: translate(-50%, -50%);
+background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
+color: #fff;
+font-size: 0.65rem;
+font-weight: 700;
+letter-spacing: 0.1em;
+padding: 0.25rem 0.75rem;
+border-radius: var(--radius-xs);
+}
+
+.testimonial-card {
+background: hsl(var(--card));
+border: 1px solid hsl(var(--border));
+border-radius: var(--radius-lg);
+padding: 2rem;
+}
+
+.cta-section {
+position: relative;
+border-radius: var(--radius-3xl);
+padding: 4rem 2rem;
+overflow: hidden;
+background: linear-gradient(135deg, hsl(var(--card)) 0%, rgba(5, 8, 22, 0.9) 100%);
+border: 1px solid hsl(var(--border));
+text-align: center;
+}
+
+/* ── 7. MODERN ENTERPRISE DASHBOARD LAYOUT SYSTEM ───────────────────────── */
+.dashboard-layout {
+display: grid;
+height: 100vh;
+grid-template-rows: auto 1fr;
+grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+.dashboard-layout {
+grid-template-rows: 1fr;
+grid-template-columns: 260px 1fr;
+}
+}
+
+.sidebar {
+background-color: hsl(var(--background));
+border-right: 1px solid hsl(var(--border));
+display: flex;
+flex-direction: column;
+height: 100%;
+}
+
+.navbar {
+height: 64px;
+background-color: hsl(var(--background) / 0.8);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid hsl(var(--border));
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 1.5rem;
+}
+
+.workspace-switcher {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+padding: 0.5rem;
+border-radius: var(--radius-md);
+border: 1px solid hsl(var(--border));
+background: hsl(var(--card) / 0.5);
+cursor: pointer;
+transition: background 0.2s ease;
+}
+.workspace-switcher:hover {
+background: hsl(var(--card));
+}
+
+.stat-card {
+background-color: hsl(var(--card));
+border: 1px solid hsl(var(--border));
+border-radius: var(--radius-lg);
+padding: 1.5rem;
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+
+.analytics-card {
+background: linear-gradient(to bottom right, hsl(var(--card)), hsl(var(--background)));
+border: 1px solid hsl(var(--border));
+border-radius: var(--radius-xl);
+padding: 1.5rem;
+}
+
+.chart-card {
+background: hsl(var(--card));
+border: 1px solid hsl(var(--border));
+border-radius: var(--radius-lg);
+padding: 1.5rem;
+position: relative;
+}
+
+.agent-card {
+border: 1px solid hsl(var(--border));
+background: rgba(15, 23, 42, 0.4);
+border-radius: var(--radius-lg);
+padding: 1.25rem;
+display: flex;
+align-items: center;
+gap: 1rem;
+transition: all 0.2s ease;
+}
+.agent-card:hover {
+border-color: hsl(var(--primary) / 0.4);
+background: hsl(var(--card) / 0.6);
+}
+
+.workflow-card {
+border-left: 3px solid hsl(var(--primary));
+background: hsl(var(--card));
+border-top: 1px solid hsl(var(--border));
+border-right: 1px solid hsl(var(--border));
+border-bottom: 1px solid hsl(var(--border));
+border-radius: 0 var(--radius-md) var(--radius-md) 0;
+padding: 1.25rem;
+}
+
+.knowledge-card {
+background: hsl(var(--card));
+border: 1px solid hsl(var(--border));
+border-radius: var(--radius-md);
+padding: 1rem;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+/* ── 8. CHAT ORCHESTRATION & COMPONENT SPECS ────────────────────────────── */
+.chat-scroll {
+scroll-behavior: smooth;
+scrollbar-gutter: stable;
+}
+
+@keyframes cursorBlink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0; }
+}
+
+.streaming-cursor::after {
+content: "▋";
+animation: cursorBlink 1s step-start infinite;
+margin-left: 2px;
+color: hsl(var(--accent));
+}
+
+.message-content pre {
+margin: 1rem 0;
+padding: 1rem;
+overflow-x: auto;
+border-radius: var(--radius-md);
+background-color: rgba(0, 0, 0, 0.4);
+border: 1px solid hsl(var(--border));
+font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+font-size: 0.875rem;
+}
+
+.message-content code {
+font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+font-size: 0.875rem;
+background-color: rgba(255, 255, 255, 0.08);
+padding: 0.15rem 0.3rem;
+border-radius: var(--radius-xs);
+}
+
+.message-content pre code {
+background-color: transparent;
+padding: 0;
+border-radius: 0;
+}
+
+.message-content p {
+margin-bottom: 0.75rem;
+line-height: 1.6;
+}
+
+.message-content ul, .message-content ol {
+margin: 0.75rem 0;
+padding-left: 1.5rem;
+}
+
+.message-content ul { list-style-type: disc; }
+.message-content ol { list-style-type: decimal; }
+
+/* ── 9. SCROLLBAR BRANDING CUSTOMIZATION ────────────────────────────────── */
+::-webkit-scrollbar {
+width: 8px;
+height: 8px;
+}
+
+::-webkit-scrollbar-track {
+background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+background: hsl(var(--border));
+border-radius: var(--radius-3xl);
+border: 2px solid hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: hsl(var(--muted-foreground) / 0.4);
+}
+
+/* ── 10. ACCESSIBILITY ENHANCEMENTS & HIGH CONTRAST CLEARANCE ───────────── */
+:focus-visible {
+outline: 2px solid hsl(var(--ring));
+outline-offset: 2px;
+}
+
+.sr-only {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+*, ::before, ::after {
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: 0.01ms !important;
+scroll-behavior: auto !important;
+}
+.animate-float, .animate-pulse-glow, .orb-ambient {
+animation: none !important;
+transform: none !important;
+}
+}
